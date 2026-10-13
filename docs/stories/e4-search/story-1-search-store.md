@@ -10,17 +10,19 @@ As a developer agent, I can run one query to find notes matching text, so that t
 
 ## Description
 
-`search(q, limit, offset)` over `notes`, matching `title` or `body` case-insensitively. `LIKE`, not FTS5, and the reason is recorded in `docs/architecture.md` §4.4: FTS5 needs a second table kept in sync with notes on every write, which would couple this epic to the notes epic.
+`search(q, limit, offset)` over `notes`, matching title or body case-insensitively. `LIKE`, not FTS5 — the reason is in `docs/architecture.md` §4.4: FTS5 needs a second table kept in sync on every write, coupling this epic to the notes epic.
 
-The one real trap: `%` and `_` are wildcards in `LIKE`. A user searching for `100%` must not match everything.
+The real trap: `%` and `_` are wildcards in `LIKE`. Someone searching for `100%` must not match everything.
 
 ## Acceptance Criteria
 
-- `search("foo")` returns notes whose title or body contains `foo`, in any case.
-- Results are newest first, with the same ordering rule as `list`.
-- `limit` and `offset` behave exactly as in the notes store.
-- A query containing `%` or `_` matches those characters literally.
+- Matches `foo` in title or body, in any case.
+- Newest first, same ordering rule as `list`.
+- `%` and `_` in the query match literally.
 - A query matching nothing returns an empty list, not an error.
+- `limit` defaults to 20, caps at 100, over-cap is clamped not rejected.
+- Negative `limit` or `offset` returns 422.
+- Ordering is deterministic (newest first, id descending as tiebreak) or paging repeats rows across pages.
 
 ## Files This Story Owns
 
@@ -41,10 +43,10 @@ A story may only create or change the files listed here. Needing another story's
 
 ## Out of Scope
 
-Ranking, stemming, fuzzy matching. The HTTP layer (`E4-S2`).
+Ranking, stemming, fuzzy matching. The HTTP layer.
 
 ## Test Notes
 
-- Case-insensitive matching in both title and body.
+- Case-insensitive match in both title and body.
 - A literal `%` search does not return everything — the test that justifies the escaping.
-- Paging matches the notes store's behaviour.
+- Paging matches the notes store.

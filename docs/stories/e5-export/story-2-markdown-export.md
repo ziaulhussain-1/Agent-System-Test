@@ -6,19 +6,19 @@ Status: Draft
 
 ## User Story
 
-As a person, I can get my notes as one readable Markdown document, so that I can keep or print them.
+As an API consumer, I can get my notes as Markdown, so that another tool or person can read them.
 
 ## Description
 
-A pure function turning a list of notes into a single Markdown document, one section per note.
+A pure function turning notes into one Markdown document, a section per note.
 
 The thing to get right: a note's body may itself contain Markdown, including headings. Without care, a body starting `# Shopping` becomes a top-level heading and the document's structure collapses.
 
 ## Acceptance Criteria
 
 - Each note becomes a section with its title as a heading.
-- Each section shows when the note was created and last updated.
-- A body containing `#` headings does not break the document's structure.
+- Each section shows created and updated times.
+- A body containing `#` headings does not break the structure.
 - An empty list produces a valid document saying there is nothing to export, not an empty string.
 - Output ends with exactly one trailing newline.
 
@@ -31,19 +31,18 @@ A story may only create or change the files listed here. Needing another story's
 
 ## Depends On
 
-`E2-S1` (for the note shape).
+`E2-S1` (for the note shape), and `E5-S1` for the package file only — this story does not use its code.
 
 ## Non-Functional
 
-- A pure function, as in `E5-S1`.
-- Deterministic: the same notes always produce byte-identical output, or the tests cannot assert on it.
+- A pure function: no database, no HTTP, and the export time is injectable so tests do not depend on the wall clock (`docs/prd.md` §4).
 
 ## Out of Scope
 
-The endpoint (`E5-S3`). JSON (`E5-S1`). Any rendering to HTML or PDF.
+The endpoint (`E5-S4`). The other formats.
 
 ## Test Notes
 
-- A note whose body contains `# Heading` does not corrupt the structure — the test that justifies whatever escaping or nesting is chosen.
+- A body containing `# Heading` does not corrupt the document — the test that justifies whatever escaping is chosen.
 - Empty input produces a valid document.
 - Output is byte-identical across runs.

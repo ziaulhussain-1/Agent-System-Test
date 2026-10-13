@@ -6,17 +6,17 @@ Status: Draft
 
 ## User Story
 
-As an operator, I can call one endpoint to learn whether the service and its database are working, so that I am not guessing from logs.
+As an operator, I can call one endpoint to learn whether the service and its database work, so that I am not guessing from logs.
 
 ## Description
 
-A `GET /health` returning service status and whether the database answers a trivial query. The first consumer of router discovery, and therefore the proof that it works.
+`GET /health`, reporting service status and whether the database answers a trivial query. The first consumer of router discovery, and the proof it works.
 
 ## Acceptance Criteria
 
-- Given the database is reachable, when `GET /health` is called, then it returns 200 with status `ok` and a database field of `ok`.
-- Given the database cannot be reached, then it returns 503 with the database field reporting the failure — and no exception text, path or SQL fragment.
-- The endpoint takes no parameters and needs no authentication.
+- Database reachable: 200, status `ok`, database `ok`.
+- Database unreachable: 503, the database field reports failure — with no exception text, path or SQL fragment.
+- No parameters, no authentication.
 
 ## Files This Story Owns
 
@@ -33,13 +33,13 @@ A story may only create or change the files listed here. Needing another story's
 ## Non-Functional
 
 - Answers well under a second; it is polled.
-- Never leaks internals on failure (`docs/prd.md` §4).
+- Never leaks internals.
 
 ## Out of Scope
 
-No dependency checks beyond the database. No metrics endpoint.
+Dependency checks beyond the database. Metrics.
 
 ## Test Notes
 
 - Healthy case returns 200 and the expected shape.
-- A broken connection returns 503 and the body contains no path, no SQL and no traceback.
+- A broken connection returns 503 with no path, SQL or traceback in the body.

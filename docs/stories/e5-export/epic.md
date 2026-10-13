@@ -2,26 +2,27 @@
 
 - ID: E5
 - Source: `docs/prd.md` → §2.2
-- Stories: `docs/stories/e5-export/`
+- Stories: `docs/stories/e5-export/` (4)
 
 ## Goal
 
-Getting data out. The most self-contained epic: two pure formatters and one endpoint, reading notes and tags and owning neither.
+Getting data out. Three pure formatters and one endpoint, reading notes and tags and owning neither — the most self-contained epic in the project.
 
 ## Scope
 
-A JSON formatter, a Markdown formatter, and the endpoint that serves both with an optional tag filter.
+JSON, Markdown and CSV formatters, and the endpoint serving all three with an optional tag filter.
 
 ## Dependencies
 
-`E2-S1`. `E5-S3` depends on both formatters; `E5-S1` and `E5-S2` are independent of each other and run in parallel.
+`E2-S1`. The three formatters are independent of each other and of everything else; `E5-S4` joins them.
 
 ## Traceability
 
-`docs/prd.md` §2.2 (Export).
+`docs/prd.md` §2.2.
 
 ## Stories
 
 - [Story 1 — JSON export](./story-1-json-export.md) — `E5-S1`
 - [Story 2 — Markdown export](./story-2-markdown-export.md) — `E5-S2`
-- [Story 3 — Export endpoint](./story-3-export-endpoint.md) — `E5-S3`
+- [Story 3 — CSV export](./story-3-csv-export.md) — `E5-S3`
+- [Story 4 — Export endpoint](./story-4-export-endpoint.md) — `E5-S4`

@@ -10,22 +10,22 @@ As an operator, I can follow one request through the logs, so that I can tell wh
 
 ## Description
 
-Middleware that assigns each request a correlation id, returns it as `X-Request-ID`, and logs one structured line per request: method, path, status, duration, id.
+Middleware assigning each request a correlation id, returning it as `X-Request-ID`, and logging one structured line per request.
 
-**Honest exception to the ownership rule:** registering middleware needs one line in `app/main.py`, which `E1-S1` owns. This story therefore runs after E1-S1 and never at the same time as it. It is written down here rather than discovered in a merge conflict.
+**Declared exception to file ownership:** registering middleware needs one line in `app/main.py`, owned by `E1-S1`. This story runs after E1-S1 and never beside it. Written down here rather than discovered in a merge conflict.
 
 ## Acceptance Criteria
 
-- Given any request, when it completes, then the response carries an `X-Request-ID` header.
-- Given the caller already sent `X-Request-ID`, then that value is used rather than a new one.
-- Given a request completes, then exactly one structured log line is emitted with method, path, status, duration and id.
+- Every response carries `X-Request-ID`.
+- A caller-supplied `X-Request-ID` is preserved rather than replaced.
+- Exactly one structured line per request: method, path, status, duration, id.
 - Note titles and bodies never appear in a log line.
 
 ## Files This Story Owns
 
 - `app/middleware.py`
 - `tests/test_middleware.py`
-- `app/main.py` — **one line only**, to register the middleware (declared exception; see Description)
+- `app/main.py` — **one line only** (declared exception)
 
 A story may only create or change the files listed here. Needing another story's file means these two stories were split wrongly — say so in the pull request rather than editing around it.
 
@@ -35,15 +35,15 @@ A story may only create or change the files listed here. Needing another story's
 
 ## Non-Functional
 
-- Logging is structured, not free text.
-- No note content in logs (`docs/prd.md` §4).
+- Structured logging, not free text.
+- No note content in logs.
 
 ## Out of Scope
 
-No log shipping, metrics or tracing backend.
+Log shipping, metrics, tracing backends.
 
 ## Test Notes
 
-- The header is present, and a supplied id is preserved.
-- One line per request, carrying the required fields.
-- A request whose body contains a distinctive string: that string does not appear in the captured logs.
+- Header present; supplied id preserved.
+- One line per request with every field.
+- A request body containing a distinctive string: it does not appear in the logs.
