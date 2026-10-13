@@ -1,0 +1,42 @@
+# BMAD core configuration.
+#
+# Mirrors the layout used in AICO so the same agents and slash commands work
+# here unchanged. Two things are deliberate and worth not "tidying" later:
+#
+#   devStoryLocation holds ONE FOLDER PER EPIC, and one FILE PER STORY. Several
+#   machines work this repository at the same time; a single shared story index
+#   that every agent edits would put a conflict in every pull request. The
+#   per-epic index.md is generated from the story files, never hand-edited.
+#
+#   devLoadAlwaysFiles must exist before any dev agent runs. They are the three
+#   documents a developer agent is expected to have read, and a missing one is
+#   a confusing failure rather than a loud one.
+
+markdownExploder: true
+
+qa:
+  qaLocation: docs/qa
+
+prd:
+  prdFile: docs/prd.md
+  prdVersion: v4
+  prdSharded: true
+  prdShardedLocation: docs/prd
+  epicFilePattern: epic-{n}*.md
+
+architecture:
+  architectureFile: docs/architecture.md
+  architectureVersion: v4
+  architectureSharded: true
+  architectureShardedLocation: docs/architecture
+
+customTechnicalDocuments: null
+
+devLoadAlwaysFiles:
+  - docs/architecture/coding-standards.md
+  - docs/architecture/tech-stack.md
+  - docs/architecture/source-tree.md
+
+devDebugLog: .ai/debug-log.md
+devStoryLocation: docs/stories
+slashPrefix: BMad
