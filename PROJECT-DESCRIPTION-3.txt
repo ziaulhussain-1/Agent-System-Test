@@ -1,0 +1,20 @@
+PROJECT DESCRIPTION 3
+=====================
+
+Project name: Agent System Test
+
+THIS IS TEST PROJECT 3.
+
+It is not a production system, it is not shipped to anyone, and nothing in it
+is meant to be depended on. It exists only so that the multi-machine agent
+setup around it can be exercised and observed.
+
+Relationship to the other descriptions
+--------------------------------------
+PROJECT-DESCRIPTION.txt is the main description of this repository. This file
+is an additional one, written so the agent setup has one more plain-text
+artifact to create, branch on, and merge.
+
+Status
+------
+Test project. Treat all data, code, and results here as disposable.
