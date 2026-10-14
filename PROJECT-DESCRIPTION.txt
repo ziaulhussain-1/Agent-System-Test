@@ -1,0 +1,44 @@
+PROJECT DESCRIPTION
+===================
+
+Project name: Agent System Test
+
+THIS IS A TEST PROJECT.
+
+It is not a production system, it is not shipped to anyone, and nothing in it
+is meant to be depended on. It exists only so that the multi-machine agent
+setup around it can be exercised and observed.
+
+What it is for
+--------------
+This repository is a proving ground for several machines working on one
+codebase at the same time through Mesh
+(https://github.com/Solvefy/agent-collaboration-system). The question being
+tested is whether independent machines can each take a separate story, work in
+parallel, and open pull requests that merge without colliding.
+
+The product inside it
+---------------------
+A small Notes API. The product is deliberately ordinary, because the product
+is not the point. It is just enough real work to give the agents something to
+divide up, branch on, and merge.
+
+Layout
+------
+docs/prd.md                  What is being built, and the open decisions
+docs/architecture.md         How it is shaped, and why
+docs/architecture/           The documents every dev agent loads first
+docs/stories/                One folder per epic, one file per story
+tools/                       Helper scripts, e.g. story overlap checking
+.bmad-core/core-config.yaml  BMAD paths and conventions
+
+The one rule
+------------
+An agent picking up a story creates that story's branch and pushes it before
+doing anything else. The pushed branch is the claim. A status line written in
+a file is not a claim, because the other machines cannot see it until it
+merges.
+
+Status
+------
+Test project. Treat all data, code, and results here as disposable.
